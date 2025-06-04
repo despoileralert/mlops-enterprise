@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: mlops_enterprise
+Version: 0.1.0
+Summary: Enterprise-grade MLOps project with MySQL, PySpark, MLflow, DVC, and Evidently.
+Author: Your Name or Team
+Requires-Python: >=3.8
+Requires-Dist: pyspark
+Requires-Dist: mlflow
+Requires-Dist: dvc
+Requires-Dist: evidently
+Requires-Dist: mysql-connector-python
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
