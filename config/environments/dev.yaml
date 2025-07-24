@@ -1,0 +1,15 @@
+# Development environment overrides
+database:
+  database: mlops-creditfraud
+  pool_size: 5
+  host: localhost
+
+logging:
+  level: DEBUG
+  console_output: true
+  file_path: logs/dev.log
+
+api:
+  host: 127.0.0.1
+  port: 8000
+  workers: 2

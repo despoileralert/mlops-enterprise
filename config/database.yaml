@@ -1,0 +1,28 @@
+default:
+# Base database configuration
+  host: localhost
+  port: 3306
+  database: mlops-creditfraud
+  user: root
+  password: Euleong3103!
+  pool_size: 10
+  pool_name: mlops_pool
+  connection_timeout: 30
+  autocommit: false
+  charset: utf8mb4
+  collation: utf8mb4_unicode_ci
+  
+# SSL configuration (optional)
+ssl_config:
+  ssl_disabled: false
+  ssl_verify_cert: true
+  ssl_verify_identity: false
+  # ssl_ca: /path/to/ca.pem
+  # ssl_cert: /path/to/client-cert.pem
+  # ssl_key: /path/to/client-key.pem
+
+retry:
+  # Retry configuration
+  connection_retries: 3
+  retry_delay: 5  # seconds
+

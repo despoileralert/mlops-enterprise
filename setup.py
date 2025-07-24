@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mlops_enterprise",
-    version="0.1.0",
+    version="0.1.1",
     description="Enterprise MLOps Platform",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -25,6 +25,7 @@ setup(
         "uvicorn>=0.19.0",
         "python-dotenv>=0.19.0",
         "pyyaml>=6.0.0",
+        "schema>=0.7.5"
     ],
     extras_require={
         "dev": [
