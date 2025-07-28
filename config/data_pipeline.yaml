@@ -1,0 +1,154 @@
+# Data Pipeline Configuration
+# This file contains configuration settings for the data pipeline
+
+default:
+  # General pipeline settings
+  processing_mode: "batch"  # batch, streaming, micro_batch
+  validation_enabled: true
+  transformation_enabled: true
+  monitoring_enabled: true
+  batch_size: 10000
+  max_retries: 3
+  timeout_seconds: 300
+  output_format: "parquet"  # csv, json, parquet
+  schema_validation: true
+  data_quality_checks: true
+
+# Database source configuration
+database:
+  # Connection settings are loaded from database.yaml
+  # Query examples:
+  # - "SELECT * FROM transactions WHERE date >= '2024-01-01'"
+  # - "SELECT customer_id, amount, fraud_flag FROM credit_fraud LIMIT 1000"
+  
+# File source configuration
+file:
+  supported_formats:
+    - csv
+    - json
+    - parquet
+  encoding: "utf-8"
+  compression: null  # gzip, bz2, etc.
+
+# API source configuration
+api:
+  timeout: 30
+  retry_attempts: 3
+  rate_limit: 100  # requests per minute
+  headers: {}  # Custom headers
+
+# Data validation settings
+validation:
+  # Schema validation
+  schema_validation_enabled: true
+  strict_mode: false  # If true, pipeline fails on validation errors
+  
+  # Quality checks
+  quality_checks_enabled: true
+  min_rows: 100
+  max_null_percentage: 50.0
+  duplicate_threshold: 10.0  # Percentage of duplicates allowed
+  
+  # Data type validation
+  type_validation_enabled: true
+  date_format: "%Y-%m-%d"
+  numeric_precision: 2
+
+# Data transformation settings
+transformation:
+  # Standard transformations
+  remove_duplicates: true
+  handle_missing_values: true
+  normalize_numeric: false
+  encode_categorical: false
+  
+  # Feature engineering
+  create_date_features: true
+  create_interaction_features: false
+  
+  # Data cleaning
+  remove_outliers: false
+  outlier_threshold: 3.0  # Standard deviations
+  
+  # Custom transformations
+  custom_transformations: []
+
+# Output settings
+output:
+  # Storage options
+  local_path: "data/processed/"
+  cloud_storage: false  # Enable for S3, GCS, etc.
+  
+  # File naming
+  timestamp_format: "%Y%m%d_%H%M%S"
+  include_metadata: true
+  
+  # Compression
+  compression: null  # gzip, snappy, etc.
+  
+  # Partitioning
+  partition_by: null  # Column name for partitioning
+  partition_size: 1000000  # Rows per partition
+
+# Monitoring and logging
+monitoring:
+  # MLflow integration
+  mlflow_enabled: true
+  experiment_name: "data_pipeline"
+  
+  # Metrics tracking
+  track_performance: true
+  track_data_quality: true
+  track_resource_usage: true
+  
+  # Alerting
+  alerts_enabled: false
+  alert_thresholds:
+    pipeline_duration: 300  # seconds
+    error_rate: 5.0  # percentage
+    data_quality_score: 80.0  # percentage
+
+# Error handling
+error_handling:
+  # Retry settings
+  max_retries: 3
+  retry_delay: 5  # seconds
+  exponential_backoff: true
+  
+  # Error recovery
+  continue_on_error: false
+  save_failed_data: true
+  error_log_path: "logs/pipeline_errors.log"
+
+# Performance optimization
+performance:
+  # Memory management
+  chunk_size: 10000
+  memory_limit: "4GB"
+  
+  # Parallel processing
+  parallel_processing: false
+  num_workers: 4
+  
+  # Caching
+  enable_caching: true
+  cache_size: "1GB"
+  cache_ttl: 3600  # seconds
+
+# Environment-specific overrides
+environments:
+  dev:
+    batch_size: 1000
+    monitoring_enabled: false
+    output_path: "data/dev/processed/"
+    
+  staging:
+    batch_size: 5000
+    monitoring_enabled: true
+    output_path: "data/staging/processed/"
+    
+  prod:
+    batch_size: 10000
+    monitoring_enabled: true
+    output_path: "data/prod/processed/"
+    alerts_enabled: true
