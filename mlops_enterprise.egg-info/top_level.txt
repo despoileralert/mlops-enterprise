@@ -1,7 +1,0 @@
-api
-builders
-components
-directors
-infrastructure
-pipelines
-utils

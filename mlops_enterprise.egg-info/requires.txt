@@ -1,5 +1,0 @@
-pyspark
-mlflow
-dvc
-evidently
-mysql-connector-python

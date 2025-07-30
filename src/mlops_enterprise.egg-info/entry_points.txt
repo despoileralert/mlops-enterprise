@@ -1,3 +1,0 @@
-[console_scripts]
-mlops-run = src.api.main:main
-mlops-train = src.pipelines.training_pipeline:main
