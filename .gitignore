@@ -148,3 +148,8 @@ Thumbs.db
 
 # Docker
 .dockerignore
+
+# dotenv environment variables file
+.env
+.env.example
+.env.*
