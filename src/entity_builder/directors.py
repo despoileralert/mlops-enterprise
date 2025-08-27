@@ -13,3 +13,4 @@ class DataIngestionDirector:
         Build the data ingestion pipeline by executing the query and writing the results to a Parquet file.
         """
         return self.builder.build()
+    

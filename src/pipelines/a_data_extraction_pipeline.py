@@ -151,3 +151,4 @@ class MySqlDataIngestionPipeline(DIPipelineBuilder):
             self.writeParquet_tos3(f'data/raw/{table_name[0]}.parquet'), 
         
         return True
+    
