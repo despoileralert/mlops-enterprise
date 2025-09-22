@@ -14,8 +14,10 @@ class SQLDataConnector:
 
 '''Data preprocessing pipeline entities'''
 
-class DataPreprocessor:
+class Datapreprocessor:
     def __init__(self):
-        self.rawdatasets: dict = {}
-        self.processed_datasets: dict = {} 
+        self.stages = []
+        interim_datasets = []
+        processed_datasets = []
+
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
 from src.entity_builder.entities import *
-
+from pyspark.sql import SparkSession, DataFrame
 
 ## Abstract base class for SQL Data Ingestion
 class DIPipelineBuilder(ABC):
@@ -70,6 +70,7 @@ class DIPipelineBuilder(ABC):
 #Abstract base class for pyspark data processing
 
 class PysparkDTPipelineBuilder(ABC):
+    
     def __init__(self, spark_session: Any):
         """
         Initialize the PysparkPipelineBuilder with a Spark session.
@@ -78,6 +79,7 @@ class PysparkDTPipelineBuilder(ABC):
         """
         self.spark_session = spark_session
     
+
     @abstractmethod
     def reset(self) -> None:
         """
@@ -85,6 +87,7 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
     
+
     @abstractmethod
     def get_from_s3(self, bucket_name: str, file_name: str) -> Any:
         """
@@ -96,8 +99,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
     
+
     @abstractmethod
-    def aggregate_data(self) -> List[Dict[str, Any]]:
+    def aggregate_data(self) -> DataFrame:
         """
         Aggregate the data based on specified groupings and aggregation functions.
 
@@ -108,8 +112,22 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def clean_data_remove_duplicates(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def feature_selection(self, data: DataFrame, method: str, params: Dict[str, Any]) -> DataFrame:
+        """
+        Perform feature selection on the data using the specified method.
+
+        :param data: A list of dictionaries containing the data to be processed.
+        :param method: The feature selection method to use (e.g., "PCA", "Chi-Squared").
+        :param params: A dictionary of parameters specific to the chosen method.
+        :return: A list of dictionaries with the selected features.
+        """
+        pass
+    
+
+    @abstractmethod
+    def clean_data_remove_duplicates(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Clean the data by removing duplicates.
 
@@ -118,8 +136,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def clean_data_remove_nulls(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def clean_data_remove_nulls(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Clean the data by removing null values.
 
@@ -128,8 +147,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def clean_data_remove_outliers(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def clean_data_remove_outliers(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Clean the data by removing outliers.
 
@@ -138,8 +158,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def transform_data_normalization(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def transform_data_normalization(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Transform the data by normalizing it.
 
@@ -148,8 +169,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass    
 
+
     @abstractmethod
-    def transform_data_standardization(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def transform_data_standardization(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Transform the data by standardizing it.
 
@@ -158,8 +180,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def transform_data_encoding(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def transform_data_encoding(self, data: List[Dict[str, Any]]) -> DataFrame:
         """
         Transform the data by encoding categorical variables.
 
@@ -168,18 +191,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass    
 
-    @abstractmethod
-    def transform_data_aggregation(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """
-        Transform the data by aggregating it.
-
-        :param data: A list of dictionaries containing the data to be transformed.
-        :return: A list of dictionaries with aggregated data.
-        """
-        pass
 
     @abstractmethod
-    def write_data_to_parquet(self, data: List[Dict[str, Any]], file_path: str) -> None:
+    def interim_toparquet(self, data: List[Dict[str, Any]], file_path: str) -> Any:
         """
         Write the data to a Parquet file.
 
@@ -188,8 +202,9 @@ class PysparkDTPipelineBuilder(ABC):
         """
         pass
 
+
     @abstractmethod
-    def parquet_to_s3(self, data: List[Dict[str, Any]], bucket_name: str, file_name: str) -> None:
+    def parquet_to_s3(self, data: List[Dict[str, Any]], bucket_name: str, file_name: str) -> Any:
         """
         Write the data to an S3 bucket.
 
@@ -198,6 +213,7 @@ class PysparkDTPipelineBuilder(ABC):
         :param file_name: The name of the file to be saved in the S3 bucket.
         """
         pass
+
 
     @abstractmethod
     def build(self, data: List[Dict[str, Any]]) -> List[Any]:
