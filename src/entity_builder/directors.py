@@ -1,6 +1,6 @@
 from src.entity_builder.entities import SQLDataConnector
 from src.entity_builder.builders import DIPipelineBuilder
-from src.pipelines.a_data_extraction_pipeline import MySqlDataIngestionPipeline
+from src.components.a_data_extraction import MySqlDataIngestionPipeline
 import mysql.connector
 from mysql.connector import MySQLConnection
 
