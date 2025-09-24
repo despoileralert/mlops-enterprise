@@ -1,0 +1,17 @@
+database:
+  host: "relational.fel.cvut.cz"
+  port: 3306
+  database: "tpcds"
+  user: "guest"
+  password: "ctu-relational"
+
+data_ingestion:
+  output_dir: "data/raw"
+  file_format: "parquet"
+  batch_size: 10000
+
+aws:
+  region_name: "ap-southeast-2"
+  access_key_id: "${AWS_S3_ACCESS_KEY_ID}"
+  secret_access_key: "${AWS_S3_SECRET_ACCESS_KEY}"
+  bucket_name: "euleong-databucket"

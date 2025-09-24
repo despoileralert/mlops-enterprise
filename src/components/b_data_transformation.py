@@ -4,8 +4,8 @@ from pyspark.sql import SparkSession, DataFrame
 from pyspark.ml import Pipeline
 from scipy import stats
 import numpy as np
-from src.entity_builder.entities import Datapreprocessor
-from src.entity_builder.builders import PysparkDTPipelineBuilder
+from src.entities.config_entities import Datapreprocessor
+from src.entities.builders import PysparkDTPipelineBuilder
 import pyspark
 from pyspark import SparkConf, SparkContext
 from pyspark.sql.functions import *

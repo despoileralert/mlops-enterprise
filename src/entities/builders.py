@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional
-from src.entity_builder.entities import *
+from src.entities.config_entities import *
 from pyspark.sql import SparkSession, DataFrame
 
 ## Abstract base class for SQL Data Ingestion
-class DIPipelineBuilder(ABC):
+class DIBuilder(ABC):
 
     @abstractmethod
     def reset(self) -> None:
