@@ -3,27 +3,6 @@ from typing import Optional, Dict, Any
 
 '''Data Ingestion Pipeline Entities Module'''
 
-class SQLDataConnector:
-    def __init__(self):
-        self.user = None,    
-        self.password = None,
-        self.host = None,
-        self.port = None,
-        self.database = None,
-        self.write_path = None ,
-        self.write_mode = None
-
-
-
-'''Data preprocessing pipeline entities'''
-
-class Datapreprocessor:
-    def __init__(self):
-        self.stages = []
-        interim_datasets = []
-        processed_datasets = []
-
-
 @dataclass
 class DatabaseConfig:
     host: str
@@ -46,3 +25,40 @@ class AWSConfig:
     access_key_id: str
     secret_access_key: str
     bucket_name: str
+
+
+'''Data Preprocessor Entities'''
+
+
+@dataclass
+class PySparkConfig:
+    app_name: str
+    master: str
+    driver_memory: str
+    jdbc_url: Optional[str]
+    jdbc_properties: Optional[Dict[str, str]]
+    sql_file: str
+
+@dataclass
+class DataPreprocessingConfig:
+    output_dir: str
+    file_format: str = "parquet"
+    spark_config: PySparkConfig 
+    batch_size: Optional[int] = 10000
+    aws_config: Optional[Dict[str, Any]] = None
+    
+@dataclass
+class LocalDatabaseWriteConfig:
+    jdbc_url: str
+    sql_uri: str
+    table: str
+    cnx1host: str
+    cnx1user: str
+    cnx1password: str
+    cnx1database: str
+    cnx2host: str
+    cnx2user: str
+    cnx2password: str
+    cnx2database: str
+    sql_buildtable = str,
+    sql_insertdata = str

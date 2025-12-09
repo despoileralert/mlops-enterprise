@@ -1,6 +1,9 @@
 data_ingestion:
   config_file: "src/config/data_ingestion.yaml"
-  
+
+data_transformation:
+  config_file: "src/config/data_transformation.yaml"
+
 logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

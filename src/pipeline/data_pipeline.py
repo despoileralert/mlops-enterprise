@@ -1,17 +1,3 @@
-'''
-import sys
-from src.entities.directors import DataIngestionDirector
-from src.entities.builders import DIBuilder
-from src.components.a_data_extraction import MySqlDataIngestion
-
-# Initialize the builder with the SQL data connector
-builder = MySqlDataIngestion(DIBuilder)
-director = DataIngestionDirector(builder)
-
-# Build the data ingestion pipeline
-pipeline = director.build_data_ingestion_pipeline()
-'''
-
 import sys
 from typing import List, Optional
 from src.utils.config_utils import create_data_ingestion_config

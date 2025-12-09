@@ -1,0 +1,31 @@
+sparkconf:
+  input_dir: "data/raw"
+  appName: "DataTransformation"
+  master: "local[*]"
+  driver_memory: "12g"
+  sql_file: "src/sql/Data aggregation.sql"
+  jdbc_url: "jdbc:mysql://relational.fel.cvut.cz:3306/tpcds"
+  data_path: "data/raw"
+  jdbc_properties:
+    user: "guest"
+    password: "ctu-relational"
+
+data_preprocessor:
+  output_dir: "data/processed"
+  file_format: "parquet"
+  batch_size: 10000
+
+localdbconfig:
+    jdbc_url: "jdbc:mysql://localhost:3306/mlops-tpcds-semi"
+    sql_uri: 'mysql+mysqlconnector://root:Euleong3103!@localhost:3306/mlops-tpcds-semi'
+    table: 'customer_analytics_copy'
+    cnx1host: "relational.fel.cvut.cz"
+    cnx1user: "guest"
+    cnx1password: "ctu-relational"
+    cnx1database: "tpcds"
+    cnx2host: 'localhost'
+    cnx2user: 'root'
+    cnx2password: ${DATABASE_PASSWORD}
+    cnx2database: 'mlops-tpcds-semi'
+    sql_buildtable: "src/sql/data_aggregation.sql"
+    sql_insertdata: "src/sql/build_table.sql"
